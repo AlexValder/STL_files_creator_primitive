@@ -59,7 +59,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 	if (!file.is_open())
 	{
 		file.close();
-		throw std::exception("File not found");
+        throw std::runtime_error("File not found");
 	}
 
 	std::string cur_word;
@@ -75,7 +75,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 		cur_word.clear();
 		file.close();
 		std::cout << count << std::endl;
-		throw std::exception("File is corrupt: \"solid <name>\" was expected");
+        throw std::runtime_error("File is corrupt: \"solid <name>\" was expected");
 	}
 
 	file >> cur_word;
@@ -99,7 +99,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 			cur_word.clear();
 			file.close();
 			std::cout << count << std::endl;
-			throw std::exception("File is corrupt: \"facet\" was expected");
+            throw std::runtime_error("File is corrupt: \"facet\" was expected");
 		}
 		file >> cur_word;
 		if (cur_word != "normal")
@@ -109,7 +109,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 			cur_word.clear();
 			file.close();
 			std::cout << count << std::endl;
-			throw std::exception("File is corrupt: \"normal\" was expected");
+            throw std::runtime_error("File is corrupt: \"normal\" was expected");
 		}
 		for (int i = 0; i < 3; ++i)
 		{
@@ -121,7 +121,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 				cur_word.clear();
 				file.close();
 				std::cout << count << std::endl;
-				throw std::exception("File is corrupt: Normal value was expected");
+                throw std::runtime_error("File is corrupt: Normal value was expected");
 			}
 			vec.push_back(atof(cur_word.c_str()));
 		}
@@ -133,7 +133,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 			cur_word.clear();
 			file.close();
 			std::cout << count << std::endl;
-			throw std::exception("File is corrupt: \"outer loop\" was expected");
+            throw std::runtime_error("File is corrupt: \"outer loop\" was expected");
 		}
 		else
 		{
@@ -145,7 +145,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 				cur_word.clear();
 				file.close();
 				std::cout << count << std::endl;
-				throw std::exception("File is corrupt: \"outer loop\" was expected");
+                throw std::runtime_error("File is corrupt: \"outer loop\" was expected");
 			}
 		}
 		for (int i = 0; i < 3; ++i)
@@ -158,7 +158,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 				cur_word.clear();
 				file.close();
 				std::cout << count << std::endl;
-				throw std::exception("File is corrupt: \"vertex\" was expected");
+                throw std::runtime_error("File is corrupt: \"vertex\" was expected");
 			}
 			for (int i = 0; i < 3; ++i)
 			{
@@ -170,7 +170,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 					cur_word.clear();
 					file.close();
 					std::cout << count << std::endl;
-					throw std::exception("File is corrupt: Vertex value was expected");
+                    throw std::runtime_error("File is corrupt: Vertex value was expected");
 				}
 				vec.push_back(atof(cur_word.c_str()));
 			}
@@ -183,7 +183,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 			cur_word.clear();
 			file.close();
 			std::cout << count << std::endl;
-			throw std::exception("File is corrupt: \"endloop\" was expected");
+            throw std::runtime_error("File is corrupt: \"endloop\" was expected");
 		}
 		file >> cur_word;
 		if (cur_word != "endfacet")
@@ -193,7 +193,7 @@ TriangleSoup STLParser::read(const std::string& filename)
 			cur_word.clear();
 			file.close();
 			std::cout << count << std::endl;
-			throw std::exception("File is corrupt: \"endfacet\" was expected");
+            throw std::runtime_error("File is corrupt: \"endfacet\" was expected");
 		}
 		res.push_back(triangle(
 			Vec(vec[3], vec[4], vec[5]),

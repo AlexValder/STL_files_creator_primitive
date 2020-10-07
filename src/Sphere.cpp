@@ -1,4 +1,5 @@
 #include "Sphere.h"
+#include <cmath>
 
 constexpr double PI = 2*3.141592653589799323;
 
@@ -15,7 +16,7 @@ TriangleSoup Sphere::generate() const
 	TriangleSoup vec;
 
 	if (rings < 2 || slices < 3)
-		throw std::exception("Cannot create a sphere");
+        throw std::runtime_error("Cannot create a sphere");
 
 	for (unsigned long long j = 0; j < rings; ++j)
 		for (unsigned long long i = 0; i < slices; ++i)
